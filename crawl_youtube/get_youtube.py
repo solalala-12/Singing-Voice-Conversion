@@ -1,6 +1,6 @@
 #%% 
 import pandas as pd
-current_dir = 'sound/Tobigs_music_project/practice'
+current_dir = 'sound/Tobigs_music_project/crawl_youtube'
 class_df = pd.read_csv(f'{current_dir}/class_labels_indices.csv')
 # 데이터에 ,로 구분되는게 있어서 ", "로 구분되기 해야한다.
 balanced_df = pd.read_csv(f'{current_dir}/balanced_train_segments.csv',sep=", ")
@@ -29,13 +29,13 @@ for index, sr in snore_df.iterrows():
     print(vids[0].default_filename)
     # ffmpeg -ss (start time) -i (direct video link) -t (duration needed) -c:v copy -c:a copy (destination file)
 
+    k = os.path.join(f'{current_dir}/data/snore/',"a.mp3")
     ### Overwrite 안됨.
-    subprocess.call(['ffmpeg','-ss',sr["start_seconds"],'-i',
+    subprocess.call(['ffmpeg','-ss',str(int(sr["start_seconds"])),'-i',
         os.path.join(f'{current_dir}/data/snore/' ,vids[0].default_filename),
-        '-t',sr["start_second"]-sr["end_second"],
+        '-t',str(int(sr["end_seconds"]-sr["start_seconds"])),
         os.path.join(f'{current_dir}/data/snore/',"a.mp3")
     ])
-    print(1111)
 
     # ffmpeg -ss 10 -i kk.mp4 -t 30 a.mp3
 #%%
