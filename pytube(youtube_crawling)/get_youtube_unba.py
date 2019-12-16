@@ -5,6 +5,7 @@ import pandas as pd
 current_dir = 'sound/Tobigs_music_project/pytube(youtube_crawling)'
 class_df = pd.read_csv(f'{current_dir}/class_labels_indices.csv')
 # 데이터에 ,로 구분되는게 있어서 ", "로 구분되기 해야한다.
+# # https://research.google.com/audioset/ 에서 얻음
 unbalanced_df = pd.read_csv(f'{current_dir}/unbalanced_train_segments.csv',sep=", ")
 
 #%%

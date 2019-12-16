@@ -2,6 +2,7 @@
 ### 데이터 위에 주석 두줄 삭제해야 잘 됨 
 import pandas as pd
 current_dir = 'sound/Tobigs_music_project/pytube(youtube_crawling)'
+# https://research.google.com/audioset/ 에서 얻음
 class_df = pd.read_csv(f'{current_dir}/class_labels_indices.csv')
 # 데이터에 ,로 구분되는게 있어서 ", "로 구분되기 해야한다.
 balanced_df = pd.read_csv(f'{current_dir}/balanced_train_segments.csv',sep=", ")
