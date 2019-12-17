@@ -2,3 +2,5 @@
 .ipynb_checkpoints/
 pytube(youtube_crawling)/data/
 pytube(youtube_crawling)/unbalanced_train_segments.csv
+pytube/data/
+pytube/unbalanced_train_segments.csv
