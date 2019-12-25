@@ -1,2 +1,5 @@
 *.csv
-Vocal_Style_Transfer/data/train/*
+*.ipynb_checkpoints
+*.DS_Store
+Vocal_Style_Transfer/data/*
+
