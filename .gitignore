@@ -1,5 +1,8 @@
 *.csv
 *.ipynb_checkpoints
 *.DS_Store
+*.pyc
+Vocal_Style_Transfer/model/*
 Vocal_Style_Transfer/data/*
+Vocal_Style_Transfer/log/*
 

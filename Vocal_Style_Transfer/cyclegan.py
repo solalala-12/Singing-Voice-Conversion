@@ -7,8 +7,6 @@ import random
 from Utils.networks import discriminator, generator, generator_unet
 from Utils.losses import *
 
-
-
 class CycleGAN(object) :
     def __init__(self, num_features, g_type = "gated_cnn",discriminator = discriminator ,generator = generator, generator_unet = generator_unet ,mode = 'train', log_dir = './') :
         self.num_features = num_features
@@ -148,7 +146,9 @@ class CycleGAN(object) :
         return os.path.join(directory, filename)
 
     def load(self, filepath):
+        print('='*30, self.mode, '='*30)
         ckpt = tf.train.get_checkpoint_state(filepath) # checkpoint load
+        print('ckpt!!!', ckpt)
         if ckpt:
             print('Loading Previous Checkpoint', ckpt.model_checkpoint_path)
             global_step = int(ckpt.model_checkpoint_path
@@ -157,7 +157,7 @@ class CycleGAN(object) :
             print("  Global step was: {}".format(global_step))
             print("  Restoring...", end="")
             self.saver.restore(self.sess, ckpt.model_checkpoint_path)
-            print(" Done.")
+            print(" Model Load Done.")
             return global_step
         else:
             print('No CheckPoint, Train을 처음부터 하겠습니다!')

@@ -17,7 +17,7 @@ def test(direction=direction, model_dir=model_dir, test_dir=test_dir, sr=sr, n_f
     outputs_dir = "./sample"
     
     model = CycleGAN(num_features=n_features,mode="test")
-    model.load(os.path.join(model_dir, model_dir))
+    model.load(model_dir)
     
     mcep = np.load(os.path.join(param_dir, 'mcep.npz'))
     mcep_mean_A = mcep['A_mean']
@@ -65,4 +65,4 @@ def test(direction=direction, model_dir=model_dir, test_dir=test_dir, sr=sr, n_f
 
 if __name__ == "__main__" :
     test(direction = direction)
-    print("Done!")
+    print("Test Complete!")

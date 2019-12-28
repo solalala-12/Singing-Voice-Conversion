@@ -7,12 +7,16 @@ import pickle
 
 
 def load_wavs(file_path, sr) :
-    wavs = []
-    file = librosa.util.find_files(file_path, ext="wav")
-    for wav in file :
-        audio, _ = load(path = wav, sr = sr)
-        wavs.append(audio)
+    files = librosa.util.find_files(file_path, ext="wav")
 
+    # wavs = []
+    # for wav in files :
+    #     audio, _ = load(path = wav, sr = sr)
+    #     wavs.append(audio)
+
+    # 제너레이터로 변경
+    wavs = (load(path=wav, sr=sr)[0] for wav in files)
+    print('Wave Loading Complete')
     return wavs
 
 def world_decompose(wav, fs, frame_period = 5.0):
@@ -47,24 +51,37 @@ def world_decode_spectral_envelop(coded_sp, fs):
 def world_encode_data(wavs, fs, frame_period = 5.0, coded_dim = 24):
 
     f0s = list()
-    timeaxes = list()
-    sps = list()
-    aps = list()
+    # timeaxes = list()
+    # sps = list()
+    # aps = list()
     coded_sps = list()
 
-    for wav in wavs:
-        print(wav.shape)
-        f0, timeaxis, sp, ap = world_decompose(wav = wav, fs = fs, frame_period = frame_period)
-        print('파일 무사 통과.... (계속 죽던 곳)')
-        coded_sp = world_encode_spectral_envelop(sp = sp, fs = fs, dim = coded_dim)
-        f0s.append(f0)
-        timeaxes.append(timeaxis)
-        sps.append(sp)
-        aps.append(ap)
+    # 제너레이터로 변경
+    decompose_generator = (world_decompose(wav=wav, fs=fs, frame_period=frame_period) for wav in wavs)
+    print('Decompose Generator Create!')
+    # f0s_coded_sps_generator = ((decode[0], world_encode_spectral_envelop(sp=decode[2], fs=fs, dim=coded_dim)) for decode in decompose_generator)
+    # print(f0s_coded_sps_generator)
+    # print(next(f0s_coded_sps_generator))    
+    # return f0s_coded_sps_generator
+    print('Encoding.......')
+    for encode in decompose_generator:
+        coded_sp = world_encode_spectral_envelop(sp=encode[2], fs=fs, dim=coded_dim)
+        f0s.append(encode[0])
         coded_sps.append(coded_sp)
+    # for wav in wavs:
+    #     print(wav.shape)
+    #     f0, timeaxis, sp, ap = world_decompose(wav = wav, fs = fs, frame_period = frame_period)
+    #     print('파일 무사 통과.... (계속 죽던 곳)')
+    #     coded_sp = world_encode_spectral_envelop(sp = sp, fs = fs, dim = coded_dim)
+    #     f0s.append(f0)
+    #     # timeaxes.append(timeaxis)
+    #     # sps.append(sp)
+    #     # aps.append(ap)
+    #     coded_sps.append(coded_sp)
         
-
-    return f0s, timeaxes, sps, aps, coded_sps
+    # return f0s, timeaxes, sps, aps, coded_sps
+    print('Preprocessing Return')
+    return f0s, coded_sps
 
 
 def transpose_in_list(lst):
