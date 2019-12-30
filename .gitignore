@@ -6,3 +6,4 @@ Vocal_Style_Transfer/model/*
 Vocal_Style_Transfer/data/*
 Vocal_Style_Transfer/log/*
 cycle_began/sample/*.wav
+cycle_began/data/*
