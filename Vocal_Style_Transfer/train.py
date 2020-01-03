@@ -11,9 +11,8 @@ from config import *
 
 def train(input_A, input_B):
 
-    global k_t_A
-    global k_t_B
-    global checkpoint_every
+    # Config 파일에서 불러오는거라 할당할 때 에러가 떠서 전역변수로 설정 
+    global k_t_A, k_t_B, lambda_k_A, lambda_k_B, balance_A, balance_B, checkpoint_every
 
     # Make Directory
     if os.path.exists(log_dir) is False :
