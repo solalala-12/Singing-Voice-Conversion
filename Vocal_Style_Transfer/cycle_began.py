@@ -6,6 +6,7 @@ from Utils.networks import discriminator_cbgan, generator
 from Utils.losses import *
 
 class CycleBeGAN(object):
+    
     def __init__(self, num_features, discriminator=discriminator_cbgan, generator=generator, mode='train',
                  log_dir='./log'):
 

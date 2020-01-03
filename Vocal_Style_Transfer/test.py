@@ -84,7 +84,7 @@ from Utils.utils import *
 from config import *
 
 
-def test(direction=direction, model_dir=model_dir, test_dir=test_dir, sr=sr, n_features=n_features, frame_period=frame_period) :
+def test(direction=direction, began=began, model_dir=model_dir, test_dir=test_dir, sr=sr, n_features=n_features, frame_period=frame_period) :
     
     outputs_dir = "./sample"
     

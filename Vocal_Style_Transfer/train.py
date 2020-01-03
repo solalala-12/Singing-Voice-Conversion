@@ -7,66 +7,41 @@ import pickle
 from cycle_began import CycleBeGAN
 from preprocess import *
 
+from config import *
+
 def train(input_A, input_B):
 
-    mini_batch_size = 1  # mini_batch_size = 1 is better
-    generator_learning_rate = 0.0002
-    generator_learning_rate_decay = generator_learning_rate / 200000
-    discriminator_learning_rate = 0.0001
-    discriminator_learning_rate_decay = discriminator_learning_rate / 200000
-    sampling_rate = 16000
-    num_mcep = 24
-    frame_period = 5.0
-    ## n_frames 128 is about 0.5 sec
-    n_frames = 512
-    lambda_cycle = 10
-    lambda_identity = 5
-    # 추가
-    gamma_A = 0.5
-    gamma_B = 0.5
-    lambda_k_A = 0.001
-    lambda_k_B = 0.001
-    balance_A = 0
-    balance_B = 0
-    # kta 초기값
-    k_t_A = 0
-    k_t_B = 0
+    global k_t_A
+    global k_t_B
+    global checkpoint_every
 
-    # make directory
+    # Make Directory
     if os.path.exists(log_dir) is False :
         os.mkdir(log_dir)
     if os.path.exists(model_dir) is False :
         os.mkdir(model_dir)
 
-    checkpoint_every = 100 # 몇 epoch마다 저장할건지
-
-    # with open("A.txt", "rb") as fp:   # Unpickling
-    #     A_norm = pickle.load(fp)
-    # with open("B.txt", "rb") as fp:   # Unpickling
-    #     B_norm = pickle.load(fp)
-
     # Preprocessing datasets
-    # 여기서 preprocess안하고 그냥 불러오는 코드 만들기
     # 있으면 기존에 있는걸로 실행
     if os.path.exists(os.path.join("./data", "A_norm.pickle")):
-        print('preprocess한 pickle파일 load!!!!!! \n새로운 파일로 train 할거면 data에 있는 pickle파일들 지우고 하세요~')
+        print('Preprocess한 pickle파일 load!!!!!! \n새로운 파일로 train 할거면 data에 있는 pickle파일들 지우고 하세요~')
         with open(os.path.join("./data", "A_norm.pickle"), "rb") as fp:   # Unpickling
             A_norm = pickle.load(fp)
         with open(os.path.join("./data", "B_norm.pickle"), "rb") as fp:   # Unpickling
             B_norm = pickle.load(fp)
     else:
         A_norm, B_norm = preprocess(input_A,input_B)
-        
 
+    # CycleBeGAN모델 불러오기
     model = CycleBeGAN(num_features = n_features, log_dir = log_dir)
 
-        # 저장한 모델 체크포인트 불러오기
+    # 저장한 모델 체크포인트 불러오기
     try:
         saved_global_step = model.load(model_dir)
         if saved_global_step is None:
             # check_point없으면 0부터 시작함
             saved_global_step = -1
-
+    # 잘못 저장된 것 불러오면 에러
     except:
         print("Something went wrong while restoring checkpoint. "
               "We will terminate training to avoid accidentally overwriting "
@@ -75,16 +50,19 @@ def train(input_A, input_B):
         
     print("Start CycleBeGan Training...")
     try:
+        # 훈련 시작
         for epoch in range(saved_global_step + 1, n_epochs) :
             print("Epoch : %d " % epoch ) 
             start_time = time.time()
             train_A, train_B = sample_train_data(dataset_A=A_norm, dataset_B=B_norm,n_frames=n_frames) # random data
         
             n_samples = train_A.shape[0]
-        
+
+            # 일단 여기 뭔지 모르겠음
             for i in range(n_samples) : # mini_ batch_size = 1
                 n_iter = n_samples * epoch + i
                 if n_iter % 50 == 0:
+                    
                     k_t_A = k_t_A + (lambda_k_A *balance_A)
                     if k_t_A > 1:
                         k_t_A = 1
@@ -105,6 +83,7 @@ def train(input_A, input_B):
             
                 start = i
                 end = start + 1
+                # Loss 구하기
                 generator_loss, discriminator_loss, measure_A, measure_B, k_t_A, k_t_B, balance_A, balance_B = model.train(
                                 input_A=train_A[start:end], input_B=train_B[start:end], 
                                 lambda_cycle=lambda_cycle,
@@ -116,16 +95,34 @@ def train(input_A, input_B):
             end_time = time.time()
             epoch_time = end_time-start_time
             print("Generator Loss : %f, Discriminator Loss : %f, Time : %02d:%02d" % (generator_loss, discriminator_loss,(epoch_time % 3600 // 60),(epoch_time % 60 // 1)))
+
+            
+            # every 에폭마다 저장
             if epoch % checkpoint_every == 0:
                 model.save(directory = model_dir, filename = "model", epoch=epoch)
                 print(epoch, 'model save 완료')
-    #             model.save(directory = model_dir, filename = "Cycle_BeGan")
-
+    
     finally:
-        print('잘못된 종료', '모델 저장')
+        print('잘못된 종료 또는 학습이 끝남 모델 저장')
         model.save(directory = model_dir, filename = "model", epoch=epoch)
 
 
 if __name__ == "__main__" :
     train(input_A = dataset_A, input_B = dataset_B)
     print("Training Done!")
+
+
+# 코랩 런타임 세션 종료 방지
+# f12 눌러 console창에 주석풀고 입력해주세요~!
+# function ClickConnect() {
+#     // 백엔드를 할당하지 못했습니다.
+#     // GPU이(가) 있는 백엔드를 사용할 수 없습니다. 가속기가 없는 런타임을 사용하시겠습니까?
+#     // 취소 버튼을 찾아서 클릭 
+#     var buttons = document.querySelectorAll("colab-dialog.yes-no-dialog paper-button#cancel");
+#     buttons.forEach(function(btn) { btn.click(); });
+#     console.log("1분마다 자동 재연결");
+#     document.querySelector("colab-toolbar-button#connect").click();
+# }
+# setInterval(ClickConnect,1000*60);
+
+# 출처: https://bryan7.tistory.com/1077 [민서네집]
