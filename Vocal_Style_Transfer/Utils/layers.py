@@ -83,6 +83,9 @@ def conv2d_layer(inputs, filters, kernel_size, strides, activation =None) :
                            activation = activation)(inputs)
     return conv
 
+
+# Cycle BeGAN
+
 def gated_linear_layer(inputs, gates, name = None):
     
     activation = tf.multiply(x = inputs, y = tf.sigmoid(gates), name = name)
