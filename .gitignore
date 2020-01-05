@@ -3,8 +3,11 @@
 *.DS_Store
 *.code
 *.pyc
+*.mp3
+*.wav
 Vocal_Style_Transfer/model/*
 Vocal_Style_Transfer/data/*
 Vocal_Style_Transfer/log/*
 Vocal_Style_Transfer/sample/*.wav
 Vocal_Style_Transfer/data/*
+Trials/crawling/pytube/data/*
