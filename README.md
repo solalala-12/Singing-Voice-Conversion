@@ -7,7 +7,7 @@
   <br>Vocal이 있는 음원 파일과 Vocal이 없는 Inst 파일을 input으로 넣으면 Vocal만 extract 되도록 합니다.
    <br> Vocal만 extract된 음원 예시: https://bit.ly/35KEaGA
 - [Data Autmentation](https://github.com/sora-12/Tobigs_music_project/blob/master/Preprocessing/data_augmentation.ipynb)
-   <br> dataset을 더 다양하게 하기 위하여 뒤집거나 반대로 재생되는 파일을 얻습니다. data augmentation을 한 파일을 input 데이터로 함께 사용하니 noise가 덜해지고 conversion 효과가 더 좋아졌습니다.
+   <br> dataset을 다양하게 확보하기 위하여 뒤집거나 반대로 재생되는 파일을 얻습니다. data augmentation을 한 파일을 input 데이터로 함께 사용하니 noise가 덜해지고 conversion 효과가 더 좋아졌습니다.
 ![preprocessing 그림](https://github.com/sora-12/Tobigs_music_project/blob/master/aug_pic.png)
 
 ### Model
@@ -20,8 +20,8 @@
 [jupyter notebook](https://github.com/sora-12/Tobigs_music_project/blob/master/Vocal_Style_Transfer.ipynb)을 코랩에서 열어서 실행하면 됩니다. Feature Extracition 과정이 train을 시작할 때 꽤 오래걸립니다! 중간에 colab에서 cell을 중지시키면 현재 epoch의 model을 저장하도록 했습니다.
 
 ### Example(Pickin good example)
-[거미 노래를 아이유 목소리로](https://drive.google.com/file/d/1K91OiGdTp8S6-mM0UgnZ0SXqEZBMhDDz/view?usp=sharing)
-[케이윌 노래를 10cm 권정열 목소리로](https://drive.google.com/file/d/1djsn1H-AdOCq0EYc3q9w0Zn8kvAaFGxS/view?usp=sharing)
+[거미 노래를 아이유 목소리로 바꾼 파일](https://drive.google.com/file/d/1K91OiGdTp8S6-mM0UgnZ0SXqEZBMhDDz/view?usp=sharing) <br>
+[케이윌 노래를 10cm 권정열 목소리로 바꾼 파일](https://drive.google.com/file/d/1djsn1H-AdOCq0EYc3q9w0Zn8kvAaFGxS/view?usp=sharing)
 
 ---
 ### Members of this Project
