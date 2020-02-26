@@ -5,7 +5,7 @@
   <br>짧은 시간 단위로 학습이 필요할 때에는 노래를 원하는 초 단위로 잘라줍니다.
 - [Voice Seperation](https://github.com/sora-12/Tobigs_music_project/blob/master/Preprocessing/Vocal_Separation_JH.ipynb)
   <br>Vocal이 있는 음원 파일과 Vocal이 없는 Inst 파일을 input으로 넣으면 Vocal만 extract 되도록 합니다.
-   <br> Vocal만 extract된 음원 예시: https://bit.ly/2v7pjKj
+   <br> Vocal만 extract된 음원 예시: https://bit.ly/2SZQJdX
 - [Data Autmentation](https://github.com/sora-12/Tobigs_music_project/blob/master/Preprocessing/data_augmentation.ipynb)
    <br> dataset을 다양하게 확보하기 위하여 뒤집거나 반대로 재생되는 파일을 얻습니다. data augmentation을 한 파일을 input 데이터로 함께 사용하니 noise가 덜해지고 conversion 효과가 더 좋아졌습니다.
 ![preprocessing 그림](https://github.com/sora-12/Tobigs_music_project/blob/master/aug_pic.png)
