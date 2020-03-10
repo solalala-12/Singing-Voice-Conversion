@@ -1,4 +1,4 @@
-# Singing Voice Conversion
+# Singing Voice Conversion Using CycleGAN
 
 ## 투빅스 11기 & 12기 음성 프로젝트 
 
