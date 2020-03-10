@@ -1,4 +1,7 @@
-# 투빅스 11기 & 12기 음성 프로젝트 
+# Singing Voice Conversion
+
+## 투빅스 11기 & 12기 음성 프로젝트 
+
 
 ### Preprocessing
 - [Splitiing](https://github.com/sora-12/Tobigs_music_project/blob/master/Preprocessing/time_cutting.ipynb)
