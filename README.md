@@ -23,8 +23,6 @@
 그 이유는 `MCEP`이 보다 많은 정보를 포함하고 있어, Vocal의 음색, 억양 등을 담을 수 있습니다.<br>
 Preprocessing과정 후에 A.pickle, B.pickle, logf0.npz, mcep.npz 파일이 만들어지고 다음에 같은 dataset으로 train 할 때에는 이를 활용합니다.
 
----
-
 - modeling
 <br> `CycleGan`, `Cycle Began` 모델을 활용하여 Vocal style을 바꾸었습니다. 모델과 관련한 코드는 아래 reference를 활용했습니다. `CycleBegan`이 더 깔끔한 음질의 결과를 보였으나, CycleGan이 조금 더 robust한 보컬 변화가 있었습니다.
 
@@ -32,7 +30,8 @@ Preprocessing과정 후에 A.pickle, B.pickle, logf0.npz, mcep.npz 파일이 만
 
 ### How to Run it!
 [jupyter notebook](https://github.com/sora-12/Tobigs_music_project/blob/master/Vocal_Style_Transfer.ipynb)을 코랩에서 열어서 실행하면 됩니다.<br>
-실행방법이나 설정방법은 노트북 파일에 자세하게 쓰여져 있으니, 참고하셔서 실행해주시기 바랍니다.
+실행방법이나 설정방법은 노트북 파일에 자세하게 쓰여져 있으니, 참고하셔서 실행해주시기 바랍니다.<br>
+코드를 수정하시거나 직접 다운받아 사용하실 분은 [코드 폴더](https://github.com/sora-12/Singing-Voice-Conversion/tree/master/Vocal_Style_Transfer)를 보시면 됩니다. 
 
 ---
 
@@ -58,4 +57,3 @@ Preprocessing과정 후에 A.pickle, B.pickle, logf0.npz, mcep.npz 파일이 만
 - https://github.com/NamSahng/SingingStyleTransfer
 - https://github.com/serereuk/Voice_Converter_CycleGAN
 - Takuhiro Kaneko, Hirokazu Kameoka. Parallel-Data-Free Voice Conversion Using Cycle-Consistent Adversarial Networks. 2017. (Voice Conversion CycleGAN)
-- 
